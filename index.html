@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linko</title>
+  
+  <style>
+/* Mobile-first base styles */
+html { scroll-behavior: smooth; }
+
+:root {
+  --bg: #f9fafb;
+  --panel: #ffffff;
+  --card: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --accent: #16a34a;
+  --border: #e5e7eb;
+  --shadow: rgba(0,0,0,0.05);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  font-size: 16px;
+}
+
+a { color: var(--primary); text-decoration: none; transition: 0.2s; }
+a:hover { text-decoration: underline; }
+
+header {
+  padding: 2rem 1rem 1.5rem;
+  text-align: center;
+  background: linear-gradient(180deg, #ffffff, #f9fafb);
+  border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+header p {
+  max-width: 90%;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Mobile-first layout: stacked column */
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem;
+  gap: 1.5rem;
+}
+
+/* Navigation */
+nav {
+  width: 100%;
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 8px var(--shadow);
+}
+
+nav h3 {
+  margin-top: 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+}
+
+nav li { margin: 0.5rem 0; }
+
+nav a {
+  display: block;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+nav a:hover {
+  background: #f3f4f6;
+  padding-left: 1rem;
+}
+
+/* Main content */
+main section {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 8px var(--shadow);
+}
+
+main section h2 {
+  font-size: 1.5rem;
+  font-weight: 650;
+  margin-top: 0;
+}
+
+main section h3 {
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: var(--primary);
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+  border: 1px solid #dbeafe;
+}
+
+ul, ol {
+  padding-left: 1.4rem;
+}
+
+ul li, ol li {
+  margin-bottom: 0.75rem;
+}
+
+.steps {
+  counter-reset: step;
+  padding-left: 0;
+  list-style: none;
+}
+
+.steps li {
+  counter-increment: step;
+  margin-bottom: 1.5rem;
+  padding-left: 2.5rem;
+  position: relative;
+}
+
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+pre {
+  background: #f3f4f6;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  overflow-x: auto;
+  font-size: 0.88rem;
+  border: 1px solid var(--border);
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+
+/* Larger screens (tablet & desktop) */
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+    max-width: 1200px;
+    gap: 2rem;
+    padding: 2rem 1rem;
+  }
+  nav {
+    flex: 0 0 250px;
+    position: sticky;
+    top: 1rem;
+    height: fit-content;
+  }
+  main {
+    flex: 1 1 auto;
+  }
+  header h1 {
+    font-size: 2.2rem;
+  }
+  header p {
+    font-size: 1rem;
+  }
+  main section h2 {
+    font-size: 1.65rem;
+  }
+}
+</style>
+
+  
+<body>
+
+<header>
+  <h1>Linko</h1>
+  <p>
+    A privacy-first, self-hosted URL shortener with advanced security, detailed analytics, and full customization.
+  </p>
+</header>
+
+<div class="container">
+
+  <nav>
+    <h3>Documentation</h3>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#requirements">Requirements</a></li>
+      <li><a href="#installation">Installation</a></li>
+      <li><a href="#dashboard">Dashboard</a></li>
+      <li><a href="#create-short-link">Create a Short Link</a></li>
+      <li><a href="#visitor-analytics">Visitor Analytics</a></li>
+      <li><a href="#smtp-configuration">SMTP Configuration</a></li>
+      <li><a href="#security">Security Settings</a></li>
+      <li><a href="#support">Support & Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="overview">
+          <h2>Overview</h2>
+          <p>
+            <strong>Linko</strong> is a privacy-first, self-hosted URL shortener built for developers, startups, and businesses
+            who need full control, security, and detailed analytics without relying on third-party services.
+          </p>
+        
+          <ul>
+            <li>Create short links with custom or random slugs</li>
+            <li>Protect private links with passwords and expiration dates</li>
+            <li>Track detailed statistics: country, IP address, referrer, operating system, and device type</li>
+            <li>Configurable SMTP for password recovery and system emails</li>
+            <li>Advanced security controls: enable/disable registrations and password recovery</li>
+            <li>Admin user management: suspend or enable users, force logout across devices</li>
+            <li>Self-hosted, privacy-focused, and fully customizable</li>
+          </ul>
+        
+          <p style="margin-top:1rem;">
+            Ready to get started? 
+            <a href="https://arsnexus.webforge.mg/" target="_blank" style="color:#2563eb; font-weight:600;">Buy Linko(Coming soon)</a> or 
+            <a href="https://arsnexus.webforge.mg/" target="_blank" style="color:#2563eb; font-weight:600;">Try the Live Demo(Coming soon)</a>.
+          </p>
+    </section>
+        
+    
+    <section id="requirements">
+      <h2>System & Server Requirements</h2>
+      <p>
+        Before installing <strong>Linko</strong>, ensure your server meets the following minimum requirements.
+        These requirements are intentionally lightweight to allow easy deployment on shared or VPS hosting.
+      </p>
+    
+      <ul>
+        <li><strong>PHP:</strong> Version 8.0 or higher</li>
+        <li>
+          <strong>PHP Extensions:</strong>
+          <ul>
+            <li><code>PDO</code> — required for database abstraction</li>
+            <li><code>PDO_SQLite</code> — required for SQLite database support</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Writable Directories:</strong>
+          <ul>
+            <li><code>storage/</code> — used for application data SQLite (currently supported), logs, and cache</li>
+          </ul>
+        </li>
+        <li>
+          <small>
+            Note: Additional database engines may be introduced in future updates.
+          </small>
+        </li>
+      </ul>
+    </section>
+    
+    <section id="installation">
+          <h2>Installation</h2>
+          <p>
+            Follow these steps to install <strong>Linko</strong> on your server:
+          </p>
+          <ol>
+            <li>
+              Extract the downloaded file to your server and point your domain or subdomain to the <code>public/</code> directory.
+            </li>
+            <li>
+              <strong>Web server configuration:</strong>
+              <ul>
+                <li>
+                  <strong>Apache:</strong> Routing to <code>index.php</code> is already handled by the included <code>.htaccess</code> file.
+                </li>
+                <li>
+                <strong>Nginx (Advanced Users):</strong> To properly route all requests to <code>index.php</code> in the <code>public/</code> directory, you need to add a configuration like this:
+                <pre>
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+              </pre>
+              </li>
+
+              </ul>
+            </li>
+            <li>
+              Visit the URL. The installation page will appear. Check that all requirements are met:
+              <ul>
+                <li>PHP >= 8.0</li>
+                <li>PHP Extensions: <code>pdo</code>, <code>pdo_sqlite</code></li>
+                <li><code>storage/</code> directory is writable</li>
+              </ul>
+            </li>
+            <li>
+              Click <strong>Next</strong> and fill in all required fields:
+              <ul>
+                <li>Admin configuration: Admin name, email, new password</li>
+                <li>App settings: App name</li>
+              </ul>
+            </li>
+            <li>
+              If all requirements are fulfilled, the <strong>Ready to Install</strong> screen will appear. Click <strong>Install</strong> to complete the installation.
+            </li>
+          </ol>
+        
+          <h3>Possible Installation Errors</h3>
+          <ul>
+              <li>The application is already installed.  
+                 <br /><strong>Solution:</strong> To reinstall, delete the <code>.env</code> file and any <code>storage/database*.db</code> files. If needed, make a backup of your database before deleting.
+              </li>
+              <li>The provided email address is invalid.  
+                 <br /><strong>Solution:</strong> Make sure you enter a valid email in the correct format (e.g., user@example.com).
+              </li>
+              <li>Some required installation fields are missing or invalid.  
+                  <br /><strong>Solution:</strong> Check that all fields are filled correctly and meet the format requirements.
+              </li>
+              <li>Unable to connect to the database.  
+                  <br /><strong>Solution:</strong> Ensure that the <code>storage/</code> directory is writable and the database is accessible.
+              </li>
+           </ul>
+            
+        </section>
+        
+
+
+    <section id="dashboard">
+      <h2>Dashboard Overview</h2>
+      <p>
+        The <strong>Linko</strong> dashboard provides a central hub for managing links, tracking performance, and accessing key settings.
+      </p>
+    
+      <h3>1. Top Navigation & Global Actions</h3>
+      <ul>
+        <li><strong>App Name:</strong> Positioned in the top-left corner for quick brand identification.</li>
+        <li><strong>Settings:</strong> A gear icon in the top-right corner provides access to account and application configurations.</li>
+        <li><strong>Create New Link:</strong> A prominent blue "+ New Link" button allows users to initiate the URL shortening process immediately.</li>
+      </ul>
+    
+      <h3>2. Analytics Overview (Cards)</h3>
+      <p>
+        Two high-level metric cards give a quick snapshot of your link performance:
+      </p>
+      <ul>
+        <li><strong>Total Shortened Links:</strong> Displays the total number of URLs created by the user.</li>
+        <li><strong>Total Clicks:</strong> Tracks the aggregate number of times all shortened links have been accessed.</li>
+      </ul>
+    
+      <h3>3. Link Management Table</h3>
+      <p>
+        The main dashboard section lists all active and inactive links, with detailed data for management:
+      </p>
+      <ul>
+        <li>
+          <strong>Short URL:</strong> Displays the shortened link (e.g., <code>https://.../l/my-product</code>).<br />  
+          <em>Feature:</em> Includes a copy icon for quick clipboard access. Click the short URL to view detailed statistics for that link.
+        </li>
+        <li>
+          <strong>Original URL:</strong> Shows the destination address.
+        </li>
+        <li>
+          <strong>Expiration:</strong> Indicates when the link will cease to function (e.g., "No Expiration").
+        </li>
+        <li>
+          <strong>Clicks:</strong> Displays the click count for that specific link, accompanied by a small trend icon. Click the number to open detailed statistics.
+        </li>
+        <li>
+          <strong>Actions:</strong> Tools to manage individual links:
+          <ul>
+            <li><strong>Edit (Pencil Icon):</strong> Modify the destination URL or short link alias.</li>
+            <li><strong>Delete (Trash Icon):</strong> Permanently remove the link.</li>
+            <li><strong>Toggle Switch:</strong> A green switch indicates the link is Active. Use it to temporarily disable the redirect without deleting the link.</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+
+    <section id="create-short-link">
+          <h2>Create a Short Link</h2>
+          <p>
+            Use the <strong>+ New Link</strong> button on the dashboard to open the modal for creating a new shortened URL.
+          </p>
+        
+          <h3>Core URL Information</h3>
+          <ul>
+            <li>
+              <strong>Original URL:</strong> A required field where you enter the long destination address (e.g., <code>https://very.long.url/...</code>).
+            </li>
+            <li>
+              <strong>Custom Slug (Optional):</strong> Allows you to define a personalized ending for your link.  
+              Enter a custom name (e.g., <code>my-product</code>) to make the link more recognizable.
+            </li>
+          </ul>
+        
+          <h3>Advanced Settings</h3>
+          <ul>
+            <li>
+              <strong>Expiration Date (Optional):</strong> Set a specific date for the link to expire.  
+              <br /><em>Behavior:</em> The link becomes inaccessible starting at 00:00 on the chosen date.  
+              <br /><em>Interface:</em> Includes a calendar icon for selecting the date.
+            </li>
+            <li>
+              <strong>Private Link (Optional):</strong> Protect the link with a password.  
+              <ul>
+                <li><strong>Password:</strong> Enter a security code.</li>
+                <li><strong>Confirm Password:</strong> Re-enter the password to prevent typos.</li>
+              </ul>
+            </li>
+          </ul>
+        
+          <h3>Actions</h3>
+          <ul>
+            <li><strong>Cancel:</strong> Closes the modal without saving any changes.</li>
+            <li><strong>Shorten URL:</strong> The primary blue button that finalizes the creation of the link and adds it to your dashboard.</li>
+          </ul>
+        </section>
+        
+
+   <section id="visitor-analytics">
+          <h2>Visitor Analytics</h2>
+          <p>
+            The <strong>Visitor Analytics</strong> section provides a comprehensive overview of link traffic and visitor behavior, allowing you to monitor engagement, identify trends, and optimize your links.
+          </p>
+        
+          <h3>Analytics Summary</h3>
+          <p>
+            At a glance, the dashboard presents key metrics through four summary cards:
+          </p>
+          <ul>
+            <li><strong>Countries:</strong> Shows visit counts grouped by country codes (e.g., FR, PL).</li>
+            <li><strong>Devices:</strong> Displays the proportion of visitors using "Desktop" vs "Mobile".</li>
+            <li><strong>Operating Systems:</strong> Tracks sessions across different OS platforms (e.g., Android, Linux).</li>
+            <li><strong>Unique IP Visitors:</strong> Total count of distinct visitor IPs to your links.</li>
+          </ul>
+        
+          <h3>Filters and Search</h3>
+          <p>
+            To analyze specific segments of your traffic, use the available filters and search options:
+          </p>
+          <ul>
+            <li><strong>Global Search:</strong> Search visitor activity by IP, User-agent, or other available fields.</li>
+            <li><strong>Search Mode Toggle:</strong> Select criteria for searching, such as "Search by IP address" or "Search by Device".</li>
+            <li><strong>Category Filters:</strong> Narrow results by Proxy usage, Operating System, Device Type, and Country.</li>
+            <li><strong>Date Range:</strong> Choose a start and end date using a calendar picker to analyze traffic within a specific period.</li>
+          </ul>
+        
+          <h3>Detailed Activity Log</h3>
+          <p>
+            The activity log provides granular information for each visit, helping you understand visitor behavior and technical context:
+          </p>
+          <ul>
+            <li><strong>Identifier:</strong> Visitor’s IP address for tracking unique sessions.</li>
+            <li><strong>Attributes:</strong> Color-coded tags for quick identification of Timestamp, Country, Device, and Operating System.</li>
+            <li><strong>Technical Data:</strong> Full User-agent string showing browser and platform details for each session.</li>
+          </ul>
+      </section>
+      
+      
+      <section id="smtp-configuration">
+          <h2>SMTP Configuration</h2>
+          <p>
+            SMTP settings allow <strong>Linko</strong> to send emails for account recovery, notifications, and other automated messages.  
+            This configuration is <strong>required</strong> if you want to enable the <em>Forgot Password</em> feature.
+          </p>
+        
+          <h3>Required Fields</h3>
+          <ul>
+            <li><strong>SMTP Server:</strong> The hostname of your mail server (e.g., <code>smtp.gmail.com</code> for Gmail).</li>
+            <li><strong>Port:</strong> The port number used by the SMTP server (commonly <code>465</code> for SSL or <code>587</code> for TLS).</li>
+            <li><strong>Username:</strong> Your email address used to send messages.</li>
+            <li><strong>Password:</strong> The password for your email account or app-specific password if required by your provider.</li>
+          </ul>
+        
+          <h3>Gmail Configuration Guide</h3>
+          <p>
+            If you are using Gmail, follow these steps to enable SMTP for Linko:
+          </p>
+          <ol>
+            <li>
+              <strong>Enable 2-Step Verification:</strong> Go to your Google Account → Security → 2-Step Verification, and turn it on.
+            </li>
+            <li>
+              <strong>Create an App Password:</strong> In your Google Account, go to Security → App Passwords → Generate a new password for Application.
+            </li>
+            <li>
+              <strong>SMTP Server:</strong> Use <code>smtp.gmail.com</code>.
+            </li>
+            <li>
+              <strong>Port:</strong> Use <code>465</code> for SSL or <code>587</code> for TLS.
+            </li>
+            <li>
+              <strong>Username:</strong> Your full Gmail address.
+            </li>
+            <li>
+              <strong>Password:</strong> The app password generated in step 2.
+            </li>
+          </ol>
+        
+          <h3>Tips</h3>
+          <ul>
+            <li>Make sure your hosting provider allows outgoing SMTP connections on the port you selected.</li>
+            <li>
+              Test your SMTP configuration before enabling the <em>Forgot Password</em> feature: 
+              <br />Click the "Test Send Mail" button and check your inbox.  
+              <br />If the test is successful, click the "Save" button to store the configuration.
+              <br />Note that running the test will <strong>not</strong> save the settings automatically.
+            </li>
+            
+          </ul>
+        </section>
+        
+        
+        <section id="security">
+              <h2>Security Settings</h2>
+              <p>
+                The <strong>Security</strong> section allows administrators and users to manage access controls, authentication settings, and activity logging. Proper configuration helps protect your account and the application from unauthorized access.
+              </p>
+            
+              <h3>Admin Controls</h3>
+              <ul>
+                <li><strong>Enable/Disable New User Registration:</strong> Control whether new users can register on the platform.</li>
+                <li><strong>User Management:</strong> View a list of registered users, and enable or disable accounts as needed.</li>
+                <li><strong>Enable/Disable Forgot Password Feature:</strong> Toggle the ability for users to recover their passwords via email.</li>
+                <li><strong>Web Request Logging:</strong> Enable or disable logging of all web requests for monitoring and auditing purposes.</li>
+                <li><strong>Login Rate Limiting:</strong> Enable or disable rate limiting for login attempts.  
+                  <br /><em>Default behavior:</em> Enable, after some failed login attempts within defined time, the user’s IP is temporarily blocked to prevent brute-force attacks.
+                </li>
+              </ul>
+            
+              <h3>User Controls</h3>
+              <ul>
+                <li><strong>Connected Devices:</strong> View all devices currently logged into your account.</li>
+                <li><strong>Logout Devices:</strong> Remotely log out any session or device for account security.</li>
+              </ul>
+        </section>
+    
+        <section id="support">
+          <h2>Support & Contact</h2>
+          <p>
+            If you need assistance, have questions, or want to report a bug, our support team is here to help.
+          </p>
+          <ul>
+            <li>
+              <strong>Email:</strong> <a href="mailto:contact.arsnexus@gmail.com">contact.arsnexus@gmail.com</a>
+            </li>
+          </ul>
+          <p>
+            Please provide as much detail as possible about your issue to help us respond quickly and effectively.
+          </p>
+        </section>
+        
+        
+
+  </main>
+</div>
+
+<footer style="background: #ffffff; border-top: 1px solid #e5e7eb; padding: 2rem 1rem; text-align: center; font-family: Inter, system-ui, sans-serif; color: #6b7280;">
+  <p style="margin: 0; font-size: 0.95rem;">
+    © 2026 <strong>Linko</strong> — Privacy-first, self-hosted URL shortener.
+  </p>
+  <p style="margin: 0.5rem 0 0; font-size: 0.85rem;">
+    <a href="/privacy.html" style="color: #2563eb; text-decoration: none; margin: 0 0.5rem;">Privacy Policy</a> |
+    <a href="/terms.html" style="color: #2563eb; text-decoration: none; margin: 0 0.5rem;">Terms of Service</a>
+  </p>
+</footer>
+
+</body>
+</html>
